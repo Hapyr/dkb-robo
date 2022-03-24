@@ -7,7 +7,7 @@ setup(name='dkb_robo',
     author='grindsa',
     author_email='grindelsack@gmail.com',
     license='GPL',
-    packages=['dkb-robo/dkb_robo','dkb_robo'],
+    packages=['dkb_robo'],
     platforms='any',
     install_requires=[
         'mechanicalsoup',

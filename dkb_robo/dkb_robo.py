@@ -82,11 +82,12 @@ class DKBRobo(object):
     tan_insert = False
     logger = None
 
-    def __init__(self, dkb_user=None, dkb_password=None, tan_insert=False, debug=False):
+    def __init__(self, dkb_user=None, dkb_password=None, tan_insert=False, debug=False, tan_callback=None):
         self.dkb_user = dkb_user
         self.dkb_password = dkb_password
         self.tan_insert = tan_insert
         self.logger = logger_setup(debug)
+        self.getTan = tan_callback
 
     def __enter__(self):
         """
@@ -171,7 +172,11 @@ class DKBRobo(object):
             print('Please open the TAN2GO app to get a TAN to be inserted below.')
 
         # ask for TAN
-        self.dkb_br["tan"] = input("TAN: ")
+        if self.getTan is None:
+            self.dkb_br["tan"] = input("TAN: ")
+        else: 
+            self.dkb_br["tan"] = self.getTan()
+            
         self.dkb_br["$event"] = 'next'
 
         # submit form and check response
